@@ -1,0 +1,64 @@
+# AI 行銷顧問系統配置文件
+
+# 助手配置
+assistants:
+  content_marketing:
+    name: "內容行銷助手"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  copywriting:
+    name: "文案撰寫助手"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.8
+    enable_image_generation: true
+
+  social_media:
+    name: "社群行銷助手"
+    model: "gpt-4o"
+    max_tokens: 4096
+    temperature: 0.7
+
+  brand_strategy:
+    name: "品牌策略顧問"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  creative_marketing:
+    name: "創意行銷助手"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.9
+
+  ecommerce:
+    name: "電商行銷助手"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  ad_manager:
+    name: "廣告投手"
+    model: "gpt-4o"
+    max_tokens: 4096
+    temperature: 0.7
+
+# API 配置
+api:
+  timeout: 30
+  max_retries: 3
+  retry_delay: 1
+
+# 日誌配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
+
+# 輸出配置
+output:
+  save_conversations: true
+  conversation_dir: "conversations"
+  export_formats: ["json", "markdown"]

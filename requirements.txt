@@ -1,0 +1,26 @@
+# Core dependencies
+anthropic>=0.18.0
+openai>=1.10.0
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+requests>=2.31.0
+pydantic>=2.5.0
+
+# CLI and UI
+click>=8.1.7
+rich>=13.7.0
+prompt-toolkit>=3.0.43
+
+# API integrations
+google-api-python-client>=2.111.0
+google-search-results>=2.4.2
+
+# Utilities
+python-dateutil>=2.8.2
+jsonschema>=4.20.0
+
+# Development
+pytest>=7.4.3
+black>=23.12.1
+flake8>=7.0.0
+mypy>=1.8.0
