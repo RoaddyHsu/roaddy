@@ -51,7 +51,7 @@ assistant_config = config.get_assistant_config("manager")
 ## 開發工作流程
 
 ### 新增助手的步驟
-1. 在 `src/assistants/` 建立新檔案（如 `personnel_f.py`）
+1. 在 `src/assistants/` 建立新檔案（如 `new_assistant.py` 或 `personnel_template.py`）
 2. 繼承 `BaseAssistant`，定義 `system_prompt` 與工作流程常數
 3. 實現 `get_welcome_message()` 和 `get_help_message()`
 4. 定義 `_get_*_prompt()` 方法提供框架提示詞
@@ -320,7 +320,7 @@ services:
 **選項 2：傳統部署**
 ```bash
 # 1. 複製專案到伺服器
-git clone <repo-url>
+git clone https://github.com/your-org/roaddy.git
 cd roaddy
 
 # 2. 建立虛擬環境
@@ -412,18 +412,47 @@ jobs:
 **新增 Gemini 支援**：
 ```python
 # src/api/gemini_client.py
+import os
 import google.generativeai as genai
+from src.utils.logger import logger
 
 class GeminiClient:
     def __init__(self, api_key=None, model="gemini-pro"):
         genai.configure(api_key=api_key or os.getenv("GOOGLE_API_KEY"))
         self.model = genai.GenerativeModel(model)
     
-    def chat(self, messages, **kwargs):
-        # 轉換訊息格式
-        prompt = self._convert_messages(messages)
-        response = self.model.generate_content(prompt)
-        return response.text
+    def _convert_messages(self, messages) -> str:
+        """
+        將 OpenAI/Anthropic 訊息格式（list of dicts with 'role' and 'content'）轉換為 Gemini 所需格式。
+        這裡僅作為範例，實際可根據 Gemini API 需求調整。
+        """
+        # 將每則訊息以 "{role}: {content}" 格式串接，保留角色資訊
+        return "\n".join([f"{msg.get('role', 'user')}: {msg.get('content', '')}" for msg in messages])
+    def chat(self, messages, **kwargs) -> str:
+        """
+        Generate a response from the Gemini model based on the provided messages.
+
+        Args:
+            messages (list): A list of message dictionaries, each containing 'role' and 'content' keys.
+            **kwargs: Additional keyword arguments for future extensibility (currently unused).
+
+        Returns:
+            str: The generated response text from the Gemini model.
+        
+        Raises:
+            Exception: If message conversion or API call fails.
+        """
+        try:
+            # 轉換訊息格式
+            prompt = self._convert_messages(messages)
+            response = self.model.generate_content(prompt)
+            if not response or not getattr(response, "text", None):
+                raise ValueError("Empty response from Gemini API")
+            logger.info(f"Gemini API 回應成功")
+            return response.text
+        except Exception as e:
+            logger.error(f"Gemini API 請求失敗: {type(e).__name__} - {e}")
+            raise  # 向上層拋出，由助手層處理
 ```
 
 在 `BaseAssistant.__init__()` 新增模型選擇邏輯。
@@ -489,7 +518,17 @@ class AssistantCollaboration:
             assistant = self.assistants[assistant_type]
             result = assistant.chat(task)
             results.append(result)
-        return self._synthesize(results)
+    def _synthesize(self, results) -> str:
+    
+    def _synthesize(self, results):
+        """
+        將多個助手的回應整合成一個有條理的輸出。
+        例如：彙總、排序、去重、或以特定格式組合。
+        實際實作可依需求調整。
+        # 確保所有回應都是字串，避免 join 時出錯
+        return "\n\n".join(str(r) if r is not None else "" for r in results)
+        # TODO: 實作回應整合邏輯
+        return "\n\n".join(results)
 ```
 
 ### 7. 效能優化
