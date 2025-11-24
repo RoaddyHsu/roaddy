@@ -1,52 +1,39 @@
-# AI 行銷顧問系統配置文件
+# 弘爺漢堡 AI 行銷團隊系統配置文件
 
 # 助手配置
 assistants:
-  content_marketing:
-    name: "內容行銷助手"
-    model: "claude-3-5-sonnet-20241022"
-    max_tokens: 4096
-    temperature: 0.7
-
-  copywriting:
-    name: "文案撰寫助手"
-    model: "claude-3-5-sonnet-20241022"
-    max_tokens: 4096
-    temperature: 0.8
-    enable_image_generation: true
-
-  social_media:
-    name: "社群行銷助手"
-    model: "gpt-4o"
-    max_tokens: 4096
-    temperature: 0.7
-
-  brand_strategy:
-    name: "品牌策略顧問"
-    model: "claude-3-5-sonnet-20241022"
-    max_tokens: 4096
-    temperature: 0.7
-
-  creative_marketing:
-    name: "創意行銷助手"
-    model: "claude-3-5-sonnet-20241022"
-    max_tokens: 4096
-    temperature: 0.9
-
-  ecommerce:
-    name: "電商行銷助手"
-    model: "claude-3-5-sonnet-20241022"
-    max_tokens: 4096
-    temperature: 0.7
-
-  ad_manager:
-    name: "廣告投手"
-    model: "gpt-4o"
-    max_tokens: 4096
-    temperature: 0.7
-
   manager:
-    name: "Manager 專用助手"
+    name: "Manager (主管)"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  personnel_a:
+    name: "人員 A (行銷企劃)"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  personnel_b:
+    name: "人員 B (數位行銷)"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  personnel_c:
+    name: "人員 C (視覺設計)"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  personnel_d:
+    name: "人員 D (美編專員)"
+    model: "claude-3-5-sonnet-20241022"
+    max_tokens: 4096
+    temperature: 0.7
+
+  personnel_e:
+    name: "人員 E (團購PM)"
     model: "claude-3-5-sonnet-20241022"
     max_tokens: 4096
     temperature: 0.7
