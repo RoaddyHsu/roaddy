@@ -10,6 +10,7 @@ from .brand_strategy import BrandStrategyAssistant
 from .creative_marketing import CreativeMarketingAssistant
 from .ecommerce import EcommerceAssistant
 from .ad_manager import AdManagerAssistant
+from .manager import ManagerAssistant
 
 __all__ = [
     "BaseAssistant",
@@ -20,4 +21,5 @@ __all__ = [
     "CreativeMarketingAssistant",
     "EcommerceAssistant",
     "AdManagerAssistant",
+    "ManagerAssistant",
 ]

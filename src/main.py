@@ -20,6 +20,7 @@ from assistants import (
     CreativeMarketingAssistant,
     EcommerceAssistant,
     AdManagerAssistant,
+    ManagerAssistant,
 )
 from utils.logger import logger
 
@@ -35,6 +36,7 @@ ASSISTANTS = {
     "5": ("創意行銷助手", CreativeMarketingAssistant),
     "6": ("電商行銷助手", EcommerceAssistant),
     "7": ("廣告投手", AdManagerAssistant),
+    "8": ("Manager 專用助手", ManagerAssistant),
 }
 
 
@@ -52,6 +54,7 @@ def show_welcome():
 5. **創意行銷助手** - 創意發想系統
 6. **電商行銷助手** - 電商策略規劃
 7. **廣告投手** - 廣告投放策略
+8. **Manager 專用助手** - 策略規劃與決策支援
 
 請選擇您需要的助手開始使用！
 """
@@ -70,6 +73,7 @@ def show_menu():
 [5] 創意行銷助手 - 創意發想系統
 [6] 電商行銷助手 - 電商策略規劃
 [7] 廣告投手 - 廣告投放策略
+[8] Manager 專用助手 - 策略規劃與決策支援
 
 [0] 退出系統
 """
@@ -97,7 +101,12 @@ def chat_with_assistant(assistant, assistant_name: str):
     # 創建對話會話
     session = PromptSession(history=FileHistory(str(history_file)))
 
-    console.print("\n[yellow]輸入 '/help' 查看幫助，'/export' 匯出對話，'/clear' 清空歷史，'/quit' 返回選單[/yellow]\n")
+    # Manager 助手額外說明
+    extra_commands = ""
+    if isinstance(assistant, ManagerAssistant):
+        extra_commands = ", '/workflows' 查看工作流程"
+
+    console.print(f"\n[yellow]輸入 '/help' 查看幫助{extra_commands}，'/export' 匯出對話，'/clear' 清空歷史，'/quit' 返回選單[/yellow]\n")
 
     while True:
         try:
@@ -125,6 +134,38 @@ def chat_with_assistant(assistant, assistant_name: str):
             elif user_input.lower() == "/export":
                 export_conversation(assistant, assistant_name)
                 continue
+
+            # Manager 助手特殊命令
+            elif isinstance(assistant, ManagerAssistant):
+                if user_input.lower() == "/workflows":
+                    response = assistant.list_workflows()
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/daily":
+                    console.print("[cyan]啟動每日工作規劃...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_DAILY_PLANNING)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/social":
+                    console.print("[cyan]啟動社群內容產出...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_SOCIAL_CONTENT)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/ad":
+                    console.print("[cyan]啟動廣告投放決策...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_AD_STRATEGY)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/decide":
+                    console.print("[cyan]啟動專案決策分析...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_PROJECT_DECISION)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/qa":
+                    console.print("[cyan]啟動內容品質把關...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_CONTENT_QA)
+                    console.print(Markdown(response))
+                    continue
 
             # 發送訊息並獲取回應
             console.print(f"\n[cyan]{assistant_name}:[/cyan] ", end="")
@@ -182,7 +223,7 @@ def export_conversation(assistant, assistant_name: str):
 
 
 @click.command()
-@click.option("--assistant", "-a", type=click.Choice(["1", "2", "3", "4", "5", "6", "7"]), help="直接選擇助手")
+@click.option("--assistant", "-a", type=click.Choice(["1", "2", "3", "4", "5", "6", "7", "8"]), help="直接選擇助手")
 def main(assistant):
     """AI 行銷顧問系統"""
     try:
@@ -201,7 +242,7 @@ def main(assistant):
         while True:
             show_menu()
 
-            choice = Prompt.ask("請選擇", choices=["0", "1", "2", "3", "4", "5", "6", "7"])
+            choice = Prompt.ask("請選擇", choices=["0", "1", "2", "3", "4", "5", "6", "7", "8"])
 
             if choice == "0":
                 console.print("\n[green]感謝使用 AI 行銷顧問系統！再見！[/green]\n")
