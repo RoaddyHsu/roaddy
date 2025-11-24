@@ -166,6 +166,21 @@ def chat_with_assistant(assistant, assistant_name: str):
                     response = assistant.start_workflow(assistant.WORKFLOW_CONTENT_QA)
                     console.print(Markdown(response))
                     continue
+                elif user_input.lower() == "/weekly":
+                    console.print("[cyan]啟動週會準備與記錄...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_WEEKLY_MEETING)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/monthly":
+                    console.print("[cyan]啟動月度績效評估...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_MONTHLY_REVIEW)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/annual":
+                    console.print("[cyan]啟動年度規劃...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_ANNUAL_PLANNING)
+                    console.print(Markdown(response))
+                    continue
 
             # 發送訊息並獲取回應
             console.print(f"\n[cyan]{assistant_name}:[/cyan] ", end="")
