@@ -5,7 +5,7 @@ Google Search API 客戶端
 import os
 import requests
 from typing import List, Dict, Optional
-from ..utils.logger import logger
+from src.utils.logger import logger
 
 
 class GoogleSearchClient:

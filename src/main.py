@@ -12,7 +12,7 @@ from prompt_toolkit.history import FileHistory
 from pathlib import Path
 import json
 
-from assistants import (
+from src.assistants import (
     ManagerAssistant,
     PersonnelAAssistant,
     PersonnelBAssistant,
@@ -20,7 +20,7 @@ from assistants import (
     PersonnelDAssistant,
     PersonnelEAssistant,
 )
-from utils.logger import logger
+from src.utils.logger import logger
 
 console = Console()
 

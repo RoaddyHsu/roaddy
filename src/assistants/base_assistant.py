@@ -4,9 +4,9 @@
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Optional, Any
-from ..api import OpenAIClient, AnthropicClient
-from ..utils.logger import logger
-from ..utils.config_loader import config
+from src.api import OpenAIClient, AnthropicClient
+from src.utils.logger import logger
+from src.utils.config_loader import config
 
 
 class BaseAssistant(ABC):

@@ -5,7 +5,7 @@ OpenAI API 客戶端
 import os
 from typing import List, Dict, Optional
 from openai import OpenAI
-from ..utils.logger import logger
+from src.utils.logger import logger
 
 
 class OpenAIClient:

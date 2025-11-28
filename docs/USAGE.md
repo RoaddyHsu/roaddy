@@ -8,38 +8,93 @@
 pip install -r requirements.txt
 ```
 
-### 2. 配置 API 金鑰
+### 2. 配置 API 金鑰 ⚠️ 重要
 
-複製 `.env.example` 到 `.env` 並填入您的 API 金鑰：
+#### 步驟 1：取得 API 金鑰
 
+**Anthropic Claude API（必須）：**
+1. 前往 [Anthropic Console](https://console.anthropic.com/)
+2. 註冊並登入
+3. 進入 **API Keys** 頁面創建金鑰
+4. 複製金鑰（格式：`sk-ant-api03-xxxxx...`）
+
+**OpenAI API（選填，用於圖片生成）：**
+1. 前往 [OpenAI Platform](https://platform.openai.com/)
+2. 進入 **API Keys** 頁面創建金鑰
+3. 複製金鑰（格式：`sk-xxxxx...`）
+
+#### 步驟 2：設定環境變數
+
+複製範例檔案：
 ```bash
 cp .env.example .env
 ```
 
-編輯 `.env` 文件：
+編輯 `.env` 文件並填入**真實的** API 金鑰：
+```bash
+nano .env
+```
 
+**必填項目：**
 ```env
-# OpenAI API 配置
-OPENAI_API_KEY=sk-your-openai-api-key
+# Anthropic API 配置（必須）
+ANTHROPIC_API_KEY=sk-ant-api03-你的實際金鑰在這裡
+```
 
-# Anthropic API 配置
-ANTHROPIC_API_KEY=sk-ant-your-anthropic-api-key
+**選填項目：**
+```env
+# OpenAI API 配置（選用，用於圖片生成）
+OPENAI_API_KEY=sk-你的實際金鑰在這裡
 
-# Google API 配置（選用）
+# Google API 配置（選用，用於搜尋功能）
 GOOGLE_API_KEY=your-google-api-key
 GOOGLE_SEARCH_ENGINE_ID=your-search-engine-id
 ```
 
+⚠️ **注意：** 請將 `your-anthropic-api-key-here` 替換成真實的 API 金鑰！
+
+#### 步驟 3：驗證設定
+
+測試 API 金鑰是否正確：
+```bash
+cd /workspaces/roaddy
+python -m pytest tests/test_assistants.py::TestAssistants::test_manager_init -v
+```
+
+如果看到 `PASSED`，表示設定成功！
+
 ### 3. 運行程式
 
+#### 方式 1：使用啟動腳本（推薦）
+
 ```bash
-# 方式 1: 互動式選單
+cd /workspaces/roaddy
+./run.sh              # 互動式選單
+./run.sh -a 1         # 直接啟動 Manager
+```
+
+啟動腳本會自動：
+- 創建並啟動虛擬環境
+- 安裝所有依賴套件
+- 設定正確的路徑
+- 檢查 .env 配置
+
+#### 方式 2：手動執行
+
+```bash
+# 設定 Python 路徑（重要！）
+export PYTHONPATH=/workspaces/roaddy:$PYTHONPATH
+
+# 互動式選單
 python src/main.py
 
-# 方式 2: 直接啟動指定助手
-python src/main.py -a 1  # 啟動內容行銷助手
-python src/main.py -a 2  # 啟動文案撰寫助手
-# ... 依此類推
+# 直接啟動指定助手
+python src/main.py -a 1  # Manager (主管)
+python src/main.py -a 2  # 人員 A (行銷企劃)
+python src/main.py -a 3  # 人員 B (數位行銷)
+python src/main.py -a 4  # 人員 C (視覺設計)
+python src/main.py -a 5  # 人員 D (美編專員)
+python src/main.py -a 6  # 人員 E (團購PM)
 ```
 
 ## 功能說明
@@ -202,38 +257,92 @@ python src/main.py -a 2  # 啟動文案撰寫助手
 
 ## 常見問題
 
-### Q1: API 金鑰設定錯誤
+### Q1: API 金鑰認證錯誤 ⚠️
 
-**錯誤訊息：** `ValueError: 請設定 OPENAI_API_KEY 環境變數`
+**錯誤訊息：**
+```
+Error code: 401 - authentication_error: invalid x-api-key
+```
+
+**原因：** API 金鑰無效或未正確設定
 
 **解決方法：**
-1. 確認 `.env` 文件存在
-2. 檢查 API 金鑰格式是否正確
-3. 重新啟動程式
+1. 確認 `.env` 文件存在：
+   ```bash
+   ls -la .env
+   ```
+
+2. 檢查是否已填入真實的 API 金鑰（不是範例值）：
+   ```bash
+   cat .env | grep ANTHROPIC_API_KEY
+   ```
+   
+3. 如果看到 `your_anthropic_api_key_here`，表示還沒填入真實金鑰！
+
+4. 編輯 `.env` 並填入從 Anthropic Console 獲得的真實金鑰：
+   ```bash
+   nano .env
+   ```
+
+5. 重新啟動程式：
+   ```bash
+   ./run.sh
+   ```
 
 ### Q2: 模組導入錯誤
 
-**錯誤訊息：** `ModuleNotFoundError: No module named 'anthropic'`
+**錯誤訊息：**
+```
+ModuleNotFoundError: No module named 'anthropic'
+ImportError: attempted relative import beyond top-level package
+```
+
+**解決方法：**
+
+**方法 1：使用啟動腳本（推薦）**
+```bash
+./run.sh
+```
+
+**方法 2：安裝依賴並設定路徑**
+```bash
+# 安裝依賴
+pip install -r requirements.txt
+
+# 設定 Python 路徑
+export PYTHONPATH=/workspaces/roaddy:$PYTHONPATH
+
+# 執行程式
+python src/main.py
+```
+
+### Q3: 測試失敗
+
+**錯誤訊息：** 測試無法執行或失敗
 
 **解決方法：**
 ```bash
-pip install -r requirements.txt
+# 使用 pytest 模組方式執行
+cd /workspaces/roaddy
+python -m pytest tests/ -v
+
+# 執行特定測試
+python -m pytest tests/test_assistants.py::TestAssistants::test_manager_init -v
 ```
 
-### Q3: 圖片生成失敗
-
-**錯誤訊息：** DALL-E 3 相關錯誤
+### Q4: 虛擬環境問題
 
 **解決方法：**
-1. 確認 OpenAI API 金鑰有效
-2. 檢查帳戶額度
-3. 在配置中停用圖片生成：
-   ```yaml
-   copywriting:
-     enable_image_generation: false
-   ```
+```bash
+# 刪除舊的虛擬環境
+rm -rf venv
+
+# 重新執行啟動腳本（會自動創建虛擬環境）
+./run.sh
+```
 
 ## 技術支援
 
 如有問題或建議，請提交 Issue 到：
-https://github.com/your-repo/roaddy/issues
+cd /workspaces/roaddy
+pytest tests/test_assistants.py

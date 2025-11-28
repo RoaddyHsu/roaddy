@@ -5,66 +5,60 @@
 import sys
 from pathlib import Path
 
-# 將 src 目錄加入 Python 路徑
-src_path = Path(__file__).parent.parent / "src"
-sys.path.insert(0, str(src_path))
+# 將專案根目錄加入 Python 路徑
+root_path = Path(__file__).parent.parent
+sys.path.insert(0, str(root_path))
 
 import pytest
-from assistants import (
-    ContentMarketingAssistant,
-    CopywritingAssistant,
-    SocialMediaAssistant,
-    BrandStrategyAssistant,
-    CreativeMarketingAssistant,
-    EcommerceAssistant,
-    AdManagerAssistant,
+from src.assistants import (
+    ManagerAssistant,
+    PersonnelAAssistant,
+    PersonnelBAssistant,
+    PersonnelCAssistant,
+    PersonnelDAssistant,
+    PersonnelEAssistant,
 )
 
 
 class TestAssistants:
     """助手測試類別"""
 
-    def test_content_marketing_init(self):
-        """測試內容行銷助手初始化"""
-        assistant = ContentMarketingAssistant()
-        assert assistant.assistant_type == "content_marketing"
+    def test_manager_init(self):
+        """測試 Manager 助手初始化"""
+        assistant = ManagerAssistant()
+        assert assistant.assistant_type == "manager"
         assert assistant.system_prompt != ""
         assert len(assistant.conversation_history) == 0
 
-    def test_copywriting_init(self):
-        """測試文案撰寫助手初始化"""
-        assistant = CopywritingAssistant()
-        assert assistant.assistant_type == "copywriting"
+    def test_personnel_a_init(self):
+        """測試人員 A 助手初始化"""
+        assistant = PersonnelAAssistant()
+        assert assistant.assistant_type == "personnel_a"
         assert assistant.system_prompt != ""
 
-    def test_social_media_init(self):
-        """測試社群行銷助手初始化"""
-        assistant = SocialMediaAssistant()
-        assert assistant.assistant_type == "social_media"
+    def test_personnel_b_init(self):
+        """測試人員 B 助手初始化"""
+        assistant = PersonnelBAssistant()
+        assert assistant.assistant_type == "personnel_b"
 
-    def test_brand_strategy_init(self):
-        """測試品牌策略顧問初始化"""
-        assistant = BrandStrategyAssistant()
-        assert assistant.assistant_type == "brand_strategy"
+    def test_personnel_c_init(self):
+        """測試人員 C 助手初始化"""
+        assistant = PersonnelCAssistant()
+        assert assistant.assistant_type == "personnel_c"
 
-    def test_creative_marketing_init(self):
-        """測試創意行銷助手初始化"""
-        assistant = CreativeMarketingAssistant()
-        assert assistant.assistant_type == "creative_marketing"
+    def test_personnel_d_init(self):
+        """測試人員 D 助手初始化"""
+        assistant = PersonnelDAssistant()
+        assert assistant.assistant_type == "personnel_d"
 
-    def test_ecommerce_init(self):
-        """測試電商行銷助手初始化"""
-        assistant = EcommerceAssistant()
-        assert assistant.assistant_type == "ecommerce"
-
-    def test_ad_manager_init(self):
-        """測試廣告投手初始化"""
-        assistant = AdManagerAssistant()
-        assert assistant.assistant_type == "ad_manager"
+    def test_personnel_e_init(self):
+        """測試人員 E 助手初始化"""
+        assistant = PersonnelEAssistant()
+        assert assistant.assistant_type == "personnel_e"
 
     def test_add_message(self):
         """測試添加訊息"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         assistant.add_message("user", "測試訊息")
 
         assert len(assistant.conversation_history) == 1
@@ -73,7 +67,7 @@ class TestAssistants:
 
     def test_clear_history(self):
         """測試清空歷史"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         assistant.add_message("user", "測試訊息")
         assistant.clear_history()
 
@@ -81,7 +75,7 @@ class TestAssistants:
 
     def test_get_history(self):
         """測試獲取歷史"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         assistant.add_message("user", "訊息1")
         assistant.add_message("assistant", "回應1")
 
@@ -92,7 +86,7 @@ class TestAssistants:
 
     def test_export_json(self):
         """測試 JSON 匯出"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         assistant.add_message("user", "測試")
         assistant.add_message("assistant", "回應")
 
@@ -103,25 +97,25 @@ class TestAssistants:
 
     def test_export_markdown(self):
         """測試 Markdown 匯出"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         assistant.add_message("user", "測試")
         assistant.add_message("assistant", "回應")
 
         md = assistant.export_conversation("markdown")
-        assert "# content_marketing" in md
+        assert "# manager" in md
         assert "## 用戶" in md
         assert "## 助手" in md
 
     def test_welcome_message(self):
         """測試歡迎訊息"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         welcome = assistant.get_welcome_message()
         assert welcome != ""
         assert isinstance(welcome, str)
 
     def test_help_message(self):
         """測試幫助訊息"""
-        assistant = ContentMarketingAssistant()
+        assistant = ManagerAssistant()
         help_msg = assistant.get_help_message()
         assert help_msg != ""
         assert isinstance(help_msg, str)

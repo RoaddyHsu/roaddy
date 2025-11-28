@@ -55,6 +55,7 @@ mkdir -p conversations
 echo ""
 echo "啟動 AI 行銷顧問系統..."
 echo ""
+export PYTHONPATH=/workspaces/roaddy:$PYTHONPATH
 python src/main.py "$@"
 
 # 退出虛擬環境
