@@ -141,7 +141,29 @@ roaddy/
 
 ## 快速開始
 
-### 方式一：使用啟動腳本（推薦）
+### 🖥️ 桌面執行檔版本（最簡單）
+
+**已打包好的執行檔：**
+1. 下載對應系統的執行檔
+2. 複製 `.env.example` 為 `.env` 並填入 API Key
+3. 雙擊執行檔即可使用
+
+**自行打包：**
+```bash
+# Windows
+build.bat
+
+# Linux/Mac
+chmod +x build.sh && ./build.sh
+```
+
+詳細打包說明請參考 [BUILD.md](docs/BUILD.md)
+
+---
+
+### 🚀 命令列版本
+
+#### 方式一：使用啟動腳本（推薦）
 
 **Linux/Mac：**
 ```bash
