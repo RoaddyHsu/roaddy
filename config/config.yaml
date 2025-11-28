@@ -4,37 +4,37 @@
 assistants:
   manager:
     name: "Manager (主管)"
-    model: "claude-3-5-sonnet-20240620"
+    model: "claude-3-haiku-20240307"
     max_tokens: 4096
     temperature: 0.7
 
   personnel_a:
     name: "人員 A (行銷企劃)"
-    model: "claude-3-5-sonnet-20240620"
+    model: "claude-3-haiku-20240307"
     max_tokens: 4096
     temperature: 0.7
 
   personnel_b:
     name: "人員 B (數位行銷)"
-    model: "claude-3-5-sonnet-20240620"
+    model: "claude-3-haiku-20240307"
     max_tokens: 4096
     temperature: 0.7
 
   personnel_c:
     name: "人員 C (視覺設計)"
-    model: "claude-3-5-sonnet-20240620"
+    model: "claude-3-haiku-20240307"
     max_tokens: 4096
     temperature: 0.7
 
   personnel_d:
     name: "人員 D (美編專員)"
-    model: "claude-3-5-sonnet-20240620"
+    model: "claude-3-haiku-20240307"
     max_tokens: 4096
     temperature: 0.7
 
   personnel_e:
     name: "人員 E (團購PM)"
-    model: "claude-3-5-sonnet-20240620"
+    model: "claude-3-haiku-20240307"
     max_tokens: 4096
     temperature: 0.7
 

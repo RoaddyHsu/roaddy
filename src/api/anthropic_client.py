@@ -12,7 +12,7 @@ class AnthropicClient:
     """Anthropic Claude API 客戶端"""
 
     def __init__(
-        self, api_key: Optional[str] = None, model: str = "claude-3-5-sonnet-20240620"
+        self, api_key: Optional[str] = None, model: str = "claude-3-haiku-20240307"
     ):
         """
         初始化 Anthropic 客戶端
