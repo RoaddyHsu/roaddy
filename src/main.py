@@ -220,7 +220,7 @@ def export_conversation(assistant, assistant_name: str):
         with open(md_file, "w", encoding="utf-8") as f:
             f.write(md_content)
 
-        console.print(f"\n[green]✓ 對話已匯出：[/green]")
+        console.print("\n[green]✓ 對話已匯出：[/green]")
         console.print(f"  - JSON: {json_file}")
         console.print(f"  - Markdown: {md_file}")
 

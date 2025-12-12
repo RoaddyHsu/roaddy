@@ -3,7 +3,7 @@
 """
 
 from .base_assistant import BaseAssistant
-from typing import Dict, Optional
+from typing import Dict
 
 
 class PersonnelEAssistant(BaseAssistant):

@@ -4,13 +4,15 @@
 
 import sys
 from pathlib import Path
+from unittest.mock import patch, MagicMock
+
+import pytest
 
 # 將專案根目錄加入 Python 路徑
 root_path = Path(__file__).parent.parent
 sys.path.insert(0, str(root_path))
 
-import pytest
-from src.assistants import (
+from src.assistants import (  # noqa: E402
     ManagerAssistant,
     PersonnelAAssistant,
     PersonnelBAssistant,
@@ -20,43 +22,63 @@ from src.assistants import (
 )
 
 
+@pytest.fixture
+def mock_anthropic_client():
+    """Mock Anthropic 客戶端"""
+    with patch("src.assistants.base_assistant.AnthropicClient") as mock:
+        mock_instance = MagicMock()
+        mock_instance.chat.return_value = "測試回應"
+        mock.return_value = mock_instance
+        yield mock
+
+
+@pytest.fixture
+def mock_openai_client():
+    """Mock OpenAI 客戶端"""
+    with patch("src.assistants.base_assistant.OpenAIClient") as mock:
+        mock_instance = MagicMock()
+        mock_instance.chat.return_value = "測試回應"
+        mock.return_value = mock_instance
+        yield mock
+
+
 class TestAssistants:
     """助手測試類別"""
 
-    def test_manager_init(self):
+    def test_manager_init(self, mock_anthropic_client):
         """測試 Manager 助手初始化"""
         assistant = ManagerAssistant()
         assert assistant.assistant_type == "manager"
         assert assistant.system_prompt != ""
         assert len(assistant.conversation_history) == 0
 
-    def test_personnel_a_init(self):
+    def test_personnel_a_init(self, mock_anthropic_client):
         """測試人員 A 助手初始化"""
         assistant = PersonnelAAssistant()
         assert assistant.assistant_type == "personnel_a"
         assert assistant.system_prompt != ""
 
-    def test_personnel_b_init(self):
+    def test_personnel_b_init(self, mock_anthropic_client):
         """測試人員 B 助手初始化"""
         assistant = PersonnelBAssistant()
         assert assistant.assistant_type == "personnel_b"
 
-    def test_personnel_c_init(self):
+    def test_personnel_c_init(self, mock_anthropic_client):
         """測試人員 C 助手初始化"""
         assistant = PersonnelCAssistant()
         assert assistant.assistant_type == "personnel_c"
 
-    def test_personnel_d_init(self):
+    def test_personnel_d_init(self, mock_anthropic_client):
         """測試人員 D 助手初始化"""
         assistant = PersonnelDAssistant()
         assert assistant.assistant_type == "personnel_d"
 
-    def test_personnel_e_init(self):
+    def test_personnel_e_init(self, mock_anthropic_client):
         """測試人員 E 助手初始化"""
         assistant = PersonnelEAssistant()
         assert assistant.assistant_type == "personnel_e"
 
-    def test_add_message(self):
+    def test_add_message(self, mock_anthropic_client):
         """測試添加訊息"""
         assistant = ManagerAssistant()
         assistant.add_message("user", "測試訊息")
@@ -65,7 +87,7 @@ class TestAssistants:
         assert assistant.conversation_history[0]["role"] == "user"
         assert assistant.conversation_history[0]["content"] == "測試訊息"
 
-    def test_clear_history(self):
+    def test_clear_history(self, mock_anthropic_client):
         """測試清空歷史"""
         assistant = ManagerAssistant()
         assistant.add_message("user", "測試訊息")
@@ -73,7 +95,7 @@ class TestAssistants:
 
         assert len(assistant.conversation_history) == 0
 
-    def test_get_history(self):
+    def test_get_history(self, mock_anthropic_client):
         """測試獲取歷史"""
         assistant = ManagerAssistant()
         assistant.add_message("user", "訊息1")
@@ -84,7 +106,7 @@ class TestAssistants:
         assert history[0]["role"] == "user"
         assert history[1]["role"] == "assistant"
 
-    def test_export_json(self):
+    def test_export_json(self, mock_anthropic_client):
         """測試 JSON 匯出"""
         assistant = ManagerAssistant()
         assistant.add_message("user", "測試")
@@ -95,7 +117,7 @@ class TestAssistants:
         assert "history" in data
         assert len(data["history"]) == 2
 
-    def test_export_markdown(self):
+    def test_export_markdown(self, mock_anthropic_client):
         """測試 Markdown 匯出"""
         assistant = ManagerAssistant()
         assistant.add_message("user", "測試")
@@ -106,14 +128,14 @@ class TestAssistants:
         assert "## 用戶" in md
         assert "## 助手" in md
 
-    def test_welcome_message(self):
+    def test_welcome_message(self, mock_anthropic_client):
         """測試歡迎訊息"""
         assistant = ManagerAssistant()
         welcome = assistant.get_welcome_message()
         assert welcome != ""
         assert isinstance(welcome, str)
 
-    def test_help_message(self):
+    def test_help_message(self, mock_anthropic_client):
         """測試幫助訊息"""
         assistant = ManagerAssistant()
         help_msg = assistant.get_help_message()

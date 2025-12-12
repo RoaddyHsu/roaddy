@@ -3,7 +3,7 @@
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Any
 from src.api import OpenAIClient, AnthropicClient
 from src.utils.logger import logger
 from src.utils.config_loader import config

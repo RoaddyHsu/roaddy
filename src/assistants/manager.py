@@ -3,7 +3,7 @@ Manager 專用 AI Agent
 """
 
 from .base_assistant import BaseAssistant
-from typing import Dict, Optional
+from typing import Dict
 
 
 class ManagerAssistant(BaseAssistant):
