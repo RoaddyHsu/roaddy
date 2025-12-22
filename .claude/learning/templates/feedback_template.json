@@ -1,0 +1,84 @@
+{
+  "feedback_template": {
+    "id": "",
+    "command": "",
+    "timestamp": "",
+    "user_context": "",
+    "rating": {
+      "overall": 0,
+      "completeness": 0,
+      "clarity": 0,
+      "usefulness": 0,
+      "professionalism": 0,
+      "creativity": 0
+    },
+    "feedback_type": "positive|suggestion|issue",
+    "details": {
+      "positives": [],
+      "improvements": [],
+      "suggestions": []
+    },
+    "learning_insights": {
+      "keep": [],
+      "adjust": [],
+      "add": []
+    },
+    "action_items": [],
+    "status": "pending_review|in_progress|completed|dismissed",
+    "resolution": {
+      "date": "",
+      "action_taken": "",
+      "version_updated": ""
+    }
+  },
+  "improvement_template": {
+    "id": "",
+    "command": "",
+    "timestamp": "",
+    "version": {
+      "from": "",
+      "to": ""
+    },
+    "trigger": "feedback|proactive|request",
+    "changes": [
+      {
+        "type": "input|framework|output|example|format",
+        "description": "",
+        "before": "",
+        "after": ""
+      }
+    ],
+    "expected_impact": "",
+    "actual_impact": {
+      "rating_change": 0,
+      "feedback_summary": ""
+    },
+    "status": "planned|implemented|verified|rolled_back"
+  },
+  "new_command_template": {
+    "id": "",
+    "name": "",
+    "category": "",
+    "timestamp": "",
+    "requested_by": "user|system",
+    "request_description": "",
+    "design": {
+      "purpose": "",
+      "target_users": [],
+      "framework": "",
+      "input_design": "",
+      "output_design": ""
+    },
+    "implementation": {
+      "file_path": "",
+      "version": "1.0",
+      "created_date": ""
+    },
+    "validation": {
+      "tested": false,
+      "test_results": "",
+      "approved": false
+    },
+    "status": "requested|designing|implemented|active|deprecated"
+  }
+}

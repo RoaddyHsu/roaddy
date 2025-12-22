@@ -1,0 +1,90 @@
+{
+  "summary": {
+    "last_updated": "2024",
+    "total_commands": 176,
+    "categories": {
+      "copywriting": {
+        "name": "文案創作",
+        "count": 32,
+        "icon": "📝"
+      },
+      "data_analytics": {
+        "name": "數據與分析",
+        "count": 22,
+        "icon": "📊"
+      },
+      "digital_marketing": {
+        "name": "數位行銷",
+        "count": 25,
+        "icon": "📱"
+      },
+      "business_management": {
+        "name": "經營管理",
+        "count": 24,
+        "icon": "🏢"
+      },
+      "project_management": {
+        "name": "專案管理",
+        "count": 15,
+        "icon": "📋"
+      },
+      "customer_management": {
+        "name": "客戶經營",
+        "count": 12,
+        "icon": "🤝"
+      },
+      "supplier_management": {
+        "name": "供應商管理",
+        "count": 5,
+        "icon": "📦"
+      },
+      "communication": {
+        "name": "溝通協作",
+        "count": 12,
+        "icon": "📧"
+      },
+      "franchise_exhibition": {
+        "name": "加盟與展覽",
+        "count": 10,
+        "icon": "🎪"
+      },
+      "ip_licensing": {
+        "name": "IP授權專項",
+        "count": 7,
+        "icon": "🎨"
+      },
+      "visual_design": {
+        "name": "視覺設計",
+        "count": 6,
+        "icon": "🖼️"
+      },
+      "system_learning": {
+        "name": "系統學習",
+        "count": 6,
+        "icon": "🔧"
+      }
+    },
+    "roles": {
+      "M": "主管",
+      "A": "行銷企劃",
+      "B": "數位行銷",
+      "C": "視覺設計",
+      "D": "美編專員",
+      "E": "團購PM"
+    },
+    "priority_distribution": {
+      "high": 0,
+      "medium": 0
+    },
+    "health_metrics": {
+      "average_rating": 0,
+      "active_commands_ratio": 0,
+      "improvement_completion_rate": 0
+    },
+    "learning_stats": {
+      "total_feedbacks": 0,
+      "total_improvements": 0,
+      "new_commands_created": 0
+    }
+  }
+}

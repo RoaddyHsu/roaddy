@@ -1,0 +1,65 @@
+{
+  "system": {
+    "name": "弘爺漢堡 AI Agent 自主學習系統",
+    "version": "1.0.0",
+    "created": "2024",
+    "last_updated": "2024"
+  },
+  "triggers": {
+    "auto_improve": {
+      "negative_feedback_threshold": 3,
+      "same_suggestion_threshold": 5,
+      "low_rating_threshold": 3.0,
+      "new_feature_request_threshold": 3
+    }
+  },
+  "feedback": {
+    "rating_scale": {
+      "min": 1,
+      "max": 5
+    },
+    "dimensions": [
+      "completeness",
+      "clarity",
+      "usefulness",
+      "professionalism",
+      "creativity"
+    ],
+    "retention_days": 365
+  },
+  "analytics": {
+    "report_frequency": "monthly",
+    "active_command_days": 30,
+    "health_thresholds": {
+      "good": 4.0,
+      "warning": 3.0,
+      "critical": 2.0
+    }
+  },
+  "versioning": {
+    "major_change_triggers": [
+      "framework_change",
+      "complete_rewrite"
+    ],
+    "minor_change_triggers": [
+      "content_update",
+      "format_improvement",
+      "example_addition"
+    ]
+  },
+  "notifications": {
+    "enabled": false,
+    "channels": []
+  },
+  "commands": {
+    "learning": [
+      "learn",
+      "improve",
+      "newprompt",
+      "promptlog",
+      "promptanalyze",
+      "promptlib"
+    ],
+    "total_count": 176
+  }
+}
