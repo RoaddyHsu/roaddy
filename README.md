@@ -373,6 +373,32 @@ You: /activity
 pytest tests/
 ```
 
+### 建立 GitHub Issues
+
+專案提供了 `create_issues.sh` 腳本，可自動建立 12 個改進 Issues：
+
+```bash
+# 確保已安裝並登入 GitHub CLI
+gh auth login
+
+# 執行腳本建立 Issues
+./create_issues.sh
+```
+
+**包含的 Issues：**
+1. 🔧 將預設分支改名為 main
+2. 📊 新增單元測試覆蓋率報告
+3. 🔒 新增 API 重試與速率限制機制
+4. 🐳 新增 Docker 支援
+5. 📝 新增工作流程測試
+6. 🌐 新增多語言支援框架
+7. 🔍 新增向量資料庫整合 (RAG)
+8. 🚀 新增 CI/CD 工作流程
+9. 💬 新增串流回應支援
+10. 🌐 新增 Web 介面
+11. 🔌 新增外部 API 整合
+12. 👥 新增助手協作機制
+
 ## 品牌資訊
 
 **弘爺漢堡**
