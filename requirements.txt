@@ -15,6 +15,9 @@ prompt-toolkit>=3.0.43
 google-api-python-client>=2.111.0
 google-search-results>=2.4.2
 
+# Asana integration
+asana>=5.0.0
+
 # Utilities
 python-dateutil>=2.8.2
 jsonschema>=4.20.0

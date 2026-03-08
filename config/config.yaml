@@ -38,6 +38,12 @@ assistants:
     max_tokens: 4096
     temperature: 0.7
 
+  asana:
+    name: "Asana 專案管理"
+    model: "claude-3-haiku-20240307"
+    max_tokens: 4096
+    temperature: 0.7
+
 # API 配置
 api:
   timeout: 30

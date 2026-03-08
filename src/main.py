@@ -19,6 +19,7 @@ from src.assistants import (
     PersonnelCAssistant,
     PersonnelDAssistant,
     PersonnelEAssistant,
+    AsanaAssistant,
 )
 from src.utils.logger import logger
 
@@ -33,6 +34,7 @@ ASSISTANTS = {
     "4": ("人員 C (視覺設計)", PersonnelCAssistant),
     "5": ("人員 D (美編專員)", PersonnelDAssistant),
     "6": ("人員 E (團購PM)", PersonnelEAssistant),
+    "7": ("Asana 專案管理", AsanaAssistant),
 }
 
 
@@ -49,6 +51,7 @@ def show_welcome():
 4. **人員 C (視覺設計)** - 品牌視覺、活動設計、包裝設計、空間設計
 5. **人員 D (美編專員)** - 設計執行、簡報製作、社群圖文、印刷製作
 6. **人員 E (團購PM)** - 團購企劃、廠商管理、物流配送、客服處理
+7. **Asana 專案管理** - 任務管理、進度追蹤、衝刺規劃、工作量分析
 
 請選擇您需要的助手開始使用！
 """
@@ -66,6 +69,7 @@ def show_menu():
 [4] 人員 C (視覺設計) - 品牌視覺、活動設計、包裝設計、空間設計
 [5] 人員 D (美編專員) - 設計執行、簡報製作、社群圖文、印刷製作
 [6] 人員 E (團購PM) - 團購企劃、廠商管理、物流配送、客服處理
+[7] Asana 專案管理 - 任務管理、進度追蹤、衝刺規劃、工作量分析
 
 [0] 退出系統
 """
@@ -126,6 +130,43 @@ def chat_with_assistant(assistant, assistant_name: str):
             elif user_input.lower() == "/export":
                 export_conversation(assistant, assistant_name)
                 continue
+
+            # Asana 助手特殊命令
+            elif isinstance(assistant, AsanaAssistant):
+                if user_input.lower() == "/workflows":
+                    response = assistant.list_workflows()
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/projects":
+                    console.print("[cyan]載入 Asana 專案...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_PROJECT_OVERVIEW)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() in ("/tasks", "/create"):
+                    console.print("[cyan]啟動任務管理...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_TASK_MANAGEMENT)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/breakdown":
+                    console.print("[cyan]啟動任務拆解...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_TASK_BREAKDOWN)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/status":
+                    console.print("[cyan]產出專案狀態報告...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_PROGRESS_REPORT)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/sprint":
+                    console.print("[cyan]啟動衝刺規劃...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_SPRINT_PLANNING)
+                    console.print(Markdown(response))
+                    continue
+                elif user_input.lower() == "/workload":
+                    console.print("[cyan]分析團隊工作量...[/cyan]")
+                    response = assistant.start_workflow(assistant.WORKFLOW_TEAM_WORKLOAD)
+                    console.print(Markdown(response))
+                    continue
 
             # Manager 助手特殊命令
             elif isinstance(assistant, ManagerAssistant):
