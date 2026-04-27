@@ -42,7 +42,7 @@ def example_anthropic():
 
     try:
         # 創建客戶端
-        client = AnthropicClient(model="claude-3-5-sonnet-20241022")
+        client = AnthropicClient(model="claude-opus-4-7")
 
         # 發送聊天請求
         messages = [

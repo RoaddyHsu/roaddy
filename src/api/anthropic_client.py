@@ -12,7 +12,7 @@ class AnthropicClient:
     """Anthropic Claude API 客戶端"""
 
     def __init__(
-        self, api_key: Optional[str] = None, model: str = "claude-3-haiku-20240307"
+        self, api_key: Optional[str] = None, model: str = "claude-opus-4-7"
     ):
         """
         初始化 Anthropic 客戶端
@@ -33,7 +33,6 @@ class AnthropicClient:
         self,
         messages: List[Dict[str, str]],
         system: Optional[str] = None,
-        temperature: float = 0.7,
         max_tokens: int = 4096,
     ) -> str:
         """
@@ -42,7 +41,6 @@ class AnthropicClient:
         Args:
             messages: 對話訊息列表
             system: 系統提示詞
-            temperature: 溫度參數
             max_tokens: 最大 token 數
 
         Returns:
@@ -53,7 +51,6 @@ class AnthropicClient:
             kwargs = {
                 "model": self.model,
                 "messages": messages,
-                "temperature": temperature,
                 "max_tokens": max_tokens,
             }
 
