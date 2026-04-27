@@ -32,7 +32,7 @@ class BaseAssistant(ABC):
 
         # 載入配置
         self.config = config.get_assistant_config(assistant_type)
-        model = self.config.get("model", "claude-3-5-sonnet-20241022")
+        model = self.config.get("model", "claude-opus-4-7")
         self.temperature = self.config.get("temperature", 0.7)
         self.max_tokens = self.config.get("max_tokens", 4096)
 
@@ -89,7 +89,6 @@ class BaseAssistant(ABC):
                 response = self.client.chat(
                     messages=self.conversation_history,
                     system=self.system_prompt,
-                    temperature=self.temperature,
                     max_tokens=self.max_tokens,
                 )
             else:
